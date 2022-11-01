@@ -1,2 +1,3 @@
-# wad-api-labs-2022
-API Labs for Web App Development 2022. 
+# Web App Dev 2: Web API Labs
+
+Practical labs for the WAD2 module, BSc. Applied Computing.
