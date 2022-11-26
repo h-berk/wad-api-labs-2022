@@ -27,6 +27,7 @@ const errHandler = (err, req, res, next) => {
 app.use(express.json());
 app.use('/api/genres', genresRouter);
 app.use('/api/users', usersRouter);
+app.use(errHandler);
 
 app.use(session({
   secret: 'ilikecake',
