@@ -6,10 +6,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-if (process.env.SEED_DB) {
-    loadUsers();
-  }
-
 // deletes all user documents in collection and inserts test data
 async function loadUsers() {
   console.log('load user Data');
@@ -34,3 +30,7 @@ async function loadGenres() {
     }
   }
   
+  if (process.env.SEED_DB) {
+    loadUsers();
+    loadGenres();
+  }
