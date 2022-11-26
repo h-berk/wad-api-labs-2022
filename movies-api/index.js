@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import moviesRouter from './api/movies/index.js';
+import genresRouter from './api/genres/index.js';
 
 dotenv.config();
 
@@ -10,6 +11,7 @@ const port = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use('/api/movies', moviesRouter);
+app.use('/api/genres', genresRouter);
 
 app.listen(port, () => {
   console.info(`Server running at ${port}`);
