@@ -1,22 +1,16 @@
-import React, { useContext} from "react";
-import { Route, Redirect } from "react-router-dom";
-import {AuthContext} from './authContext'
+import React, { useContext } from "react";
+import { AuthContext } from "./authContext";
+import { Navigate, useLocation } from "react-router-dom";
 
-const PrivateRoute = props => {
-  const context = useContext(AuthContext)
-  // Destructure props from <privateRoute> 
-  const { component: Component, ...rest } = props;
-  console.log(props.location)
-  return context.isAuthenticated === true ? (
-    <Route {...rest} render={props => <Component {...props} />} />
-  ) : (
-    <Redirect
-      to={{
-        pathname: "/login",
-        state: { from: props.location }
-      }}
-    />
-  );
+const PrivateRoute = ({ children }) => {
+  const context = useContext(AuthContext);
+  const location = useLocation();
+
+  if (!context.isAuthenticated) {
+    return <Navigate to={"/login"} replace state={{ intent: location }} />;
+  }
+
+  return children;
 };
 
 export default PrivateRoute;

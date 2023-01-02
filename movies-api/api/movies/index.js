@@ -5,7 +5,7 @@ import movieModel from './movieModel.js';
 import asyncHandler from 'express-async-handler';
 import {
     getUpcomingMovies
-  } from '../tmdb-api';
+  } from '../tmdb-api.js';
 
 const router = express.Router(); 
 

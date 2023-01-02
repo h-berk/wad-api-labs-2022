@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Redirect, Switch, Link } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, Link } from "react-router-dom";
 import { PublicPage, Movies, Profile, HomePage } from "./pages";
 import LoginPage from "./loginPage";
 import AuthProvider from "./authContext";
 import PrivateRoute from "./privateRoute";
 import AuthHeader from "./authHeader";
 import SignUpPage from "./signUpPage";
-import MovieProvider from "./moviesContext";
+import MoviesProvider from "./moviesContext";
 
 const App = () => {
   return (
@@ -28,17 +28,31 @@ const App = () => {
             <Link to="/profile">Profile</Link>
           </li>
         </ul>
-        <MovieProvider>
-        <Switch>
-          <Route path="/signup" component={SignUpPage} />
-          <Route path="/public" component={PublicPage} />
-          <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={LoginPage} />
-          <PrivateRoute path="/movies" component={Movies} />
-          <PrivateRoute path="/profile" component={Profile} />
-          <Redirect from="*" to="/" />
-        </Switch>
-        </MovieProvider>
+        <MoviesProvider>
+          <Routes>
+            <Route path="/public" element={<PublicPage />} />
+            <Route exact path="/" element={<HomePage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/movies"
+              element={
+                <PrivateRoute>
+                  <Movies />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </MoviesProvider>
       </AuthProvider>
     </BrowserRouter>
   );
